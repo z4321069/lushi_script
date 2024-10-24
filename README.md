@@ -1,3 +1,5 @@
+本版本由z4321069修改，你有本事商用你就商用，但是让我看到我必骂你，包括收调试费那种人。目前依然有bug，虽然是已经算稳定了。
+感谢zhoubin大佬在关服前就带来这么棒的脚本，希望zhoubin大佬继续回坑。
 # Hearthstone Mercenaries Mode Script
 
 中文用户请阅读[这里](https://github.com/zhoubin-me/lushi_script/blob/main/README_CN.md)
