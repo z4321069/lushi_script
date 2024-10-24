@@ -1,3 +1,5 @@
+此版本为z4321069更新，多个文件有修改，请自行对比。有bug请提issue，提的时候把对应的log文件和error文件也给带上。
+使用时需要在脚本内配置好两个路径，佣兵队伍必须与实际相符，奖励数量必须拿准，脚本运行时不要乱动鼠标键盘。
 # Hearthstone Mercenaries Mode Script
 
 中文用户请阅读[这里](https://github.com/zhoubin-me/lushi_script/blob/main/README_CN.md)
