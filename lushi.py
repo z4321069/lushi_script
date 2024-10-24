@@ -22,14 +22,16 @@ from utils.images import get_sub_np_array, get_burning_green_circles, get_burnin
 from utils.battle_ai import BattleAi
 import utils.logging_util
 
-logger = logging.getLogger()
+from hslog.exceptions import CorruptLogError, ParsingError, RegexParsingError
 
+logger = logging.getLogger()
+cfg = {"key": "value"}
 
 class Agent:
     def __init__(self, cfg):
         if cfg['lang'].startswith('EN'):
             self.lang = 'eng'
-            self.loc_file = 'config/locs_eng.yaml'
+            self.oc_file = 'config/locs_eng.yaml'
             self.img_folder = 'resource/imgs_eng_1024x768'
             self.title = 'hearthstone'
         elif cfg['lang'].startswith('ZH'):
@@ -62,9 +64,9 @@ class Agent:
         self.choice_skill_index = {}  # 抉择技能选择第1个 【尤朵拉、巴林达适用，左0右2】
         self.choice_skill_index2 = {} # 卡扎抉择技能选择第2个【卡扎、雷克萨适用，左中右0、1、2】
         self.battle_time_wait = 1
-        self.states = ['box', 'mercenaries', 'team_lock', 'travel', 'boss_list', 'team_list', 'map_not_ready',
+        self.states = ['box','else_mode', 'mercenaries', 'team_lock', 'travel', 'boss_list', 'team_list', 'map_not_ready',
                        'goto', 'show', 'teleport', 'start_game', 'member_not_ready', 'not_ready_dots', 'battle_ready',
-                       'treasure_list', 'treasure_replace', 'treasure_list2', 'destroy', 'blue_portal', 'boom', 'bonus_loot', 'cursed_treasure', 'visitor_list',
+                       'treasure_list', 'treasure_replace', 'treasure_list2', 'destroy', 'blue_portal','cursed_treasure', 'boom', 'bonus_loot', 'cursed_treasure', 'visitor_list',
                        'final_reward', 'final_reward2', 'final_confirm', 'close', 'ok', 'done', 'member_not_ready2', 'campfire']
 
         self.load_config(cfg)
@@ -122,7 +124,11 @@ class Agent:
             del cfg['boss_hero']
         else:
             self.boss_heros = self.heros
-        cfg['hs_log'] = os.path.join(os.path.dirname(cfg['hs_path']), 'Logs', 'Power.log')
+        newest_dir = os.path.join(os.path.dirname(cfg['hs_path']), 'Logs')  #\hearthstone\logs
+        all_dir_folders = [f for f in os.listdir(newest_dir) if os.path.isdir(os.path.join(newest_dir,f))] #过滤掉不是文件夹的
+        all_dir_folders.sort(key=lambda x: os.path.getmtime(os.path.join(newest_dir,x))) #以X为排序依据进行了排序，现在该变量的负一位置是符合要求的了，但是只是那个文件夹的名字。
+        cfg['hs_log'] = os.path.join(os.path.dirname(cfg['hs_path']),'Logs',str(all_dir_folders[-1]), 'Power.log') #这一步是组合出完整地址。
+        #cfg['hs_log'] = os.path.join(os.path.dirname(cfg['hs_path']), 'Power.log')
         self.basic = SimpleNamespace(**cfg)
         self.stop_at_boss = self.basic.stop_at_boss
         self.fix_x = self.basic.fix_x
@@ -318,8 +324,14 @@ class Agent:
             battle_stratege = self.basic.boss_battle_stratege  # normal, max_dmg, kill_big, kill_min
 
         del self.log_util
-        self.log_util = LogUtil(self.basic.hs_log)
-        game = self.log_util.parse_game()
+        try:
+            self.log_util = LogUtil(self.basic.hs_log)
+            game = self.log_util.parse_game()
+        except RegexParsingError:
+            restart_game(self.lang, self.basic.bn_path)
+            logger.info(f"start_battle got a empty line, restart")
+            time.sleep(45)
+            self.run_pve()
 
         first_x, mid_x, last_x, y = self.locs.heros
         n_my_hero = len(game.my_hero)
@@ -416,7 +428,13 @@ class Agent:
     # risk_num  颜色克制的敌人回避数量阈值，大于该数值则需要调整上场英雄
     def select_members(self, risk_num=2, battle_boss=False, enemy_in_balcklist=False):
         logger.info(f"Start select members, battle_boss ? {battle_boss} start battle enemy")
-        game = self.log_util.parse_game()
+        try:
+            game = self.log_util.parse_game()
+        except RegexParsingError as r:
+            logger.info(f"select_members find enmpty line or something else")
+            restart_game(self.lang, self.basic.bn_path)
+            time.sleep(45)
+            self.run_pve()
 
         rect, screen = find_lushi_window(self.title, to_gray=True)
         enemy_in_blacklist = False
@@ -699,9 +717,9 @@ class Agent:
     def state_handler(self, state, tic, text):
         success, loc, rect = self.check_in_screen(text)
         '''
-        self.states = ['box', 'mercenaries', 'team_lock', 'travel', 'boss_list', 'team_list', 'map_not_ready',
+        self.states = ['box','else_mode','mercenaries', 'team_lock', 'travel', 'boss_list', 'team_list', 'map_not_ready',
                   'goto', 'show', 'teleport', 'start_game', 'member_not_ready', 'not_ready_dots', 'battle_ready',
-                  'treasure_list', 'treasure_replace', 'treasure_list2', 'destroy', 'blue_portal', 'boom', 'bonus_loot', 'cursed_treasure', 'visitor_list',
+                  'treasure_list', 'treasure_replace', 'treasure_list2', 'destroy', 'blue_portal','cursed_treasure', 'boom', 'bonus_loot', 'cursed_treasure', 'visitor_list',
                   'final_reward', 'final_reward2', 'final_confirm', 'ok', 'close', 'done', 'member_not_ready2', 'campfire']
         '''
         if success:
@@ -709,10 +727,15 @@ class Agent:
                 state = text
                 tic = time.time()
 
-            if state in ['mercenaries', 'box', 'team_lock', 'close', 'ok', 'done']:
+            if state in ['else_mode','box', 'team_lock', 'close', 'ok', 'done']:
                 logger.info(f'find {state}, try to click')
                 self.new_click(tuple_add(rect, loc))
 
+            if state == 'mercenaries':
+                logger.info(f'find {state}, try to click')
+                self.new_click(tuple_add(rect, loc))
+                self.new_click(tuple_add(rect, self.locs.enter_mercenaries))
+            
             if state == 'travel':
                 logger.info(f'find {state}, try to click')
                 self.surprise_relative_loc = None  # 进地图清空
@@ -905,7 +928,7 @@ class Agent:
                         circles = get_burning_green_circles(screen, 55, 110)
                         if 1 > len(circles):
                             print(f"[{state}]  stop at boss")
-                            time.sleep(30)
+                            time.sleep(45)
                 else:
                     self.new_click(tuple_add(rect, self.locs.start_game))
 
@@ -1041,9 +1064,15 @@ class Agent:
                     self.run_pve()
                 except AssertionError as e:
                     logger.error(f'错误：请删除炉石路径下的Logs/Power.log再重新打开!!!!')
+                    restart_game(self.lang, self.basic.bn_path)
+                    time.sleep(45)
+                    self.run_pve()
                     break
                 except Exception as e:
                     logger.error(f'错误：{e}', exc_info=True)
+                    restart_game(self.lang, self.basic.bn_path)
+                    time.sleep(45)
+                    self.run_pve()
                     try:
                         if self.basic.screenshot_error:
                             screenshot(self.title, 'error')
@@ -1055,7 +1084,7 @@ class Agent:
 
     def run_pve(self):
         time.sleep(2)
-        success, loc, rect = self.check_in_screen('mercenaries')
+        success, loc, rect = self.check_in_screen('else_mode')
         tic = time.time()
         state = ""
 
@@ -1101,7 +1130,7 @@ def run_from_gui(cfg):
     elif cfg['lang'].startswith('ZH'):
         lang = 'chs'
     else:
-        lang = None
+        lang = 'chs'
     restart_game(lang, cfg['bn_path'], kill_existing=False)
     agent = Agent(cfg=cfg)
     agent.run()
@@ -1130,7 +1159,7 @@ def main():
         elif args.lang == 'eng':
             title = 'Hearthstone'
         else:
-            title = None
+            title = 'hearthstone'
         while True:
             find_relative_loc(title)
             time.sleep(1)

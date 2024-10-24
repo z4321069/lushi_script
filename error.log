@@ -1,0 +1,196 @@
+Traceback (most recent call last):
+  File "C:\Users\DELL\Desktop\password\lushi.py", line 1064, in run
+    self.run_pve()
+  File "C:\Users\DELL\Desktop\password\lushi.py", line 1121, in run_pve
+    success, tic, state, rect = self.state_handler(state, tic, state_text)
+  File "C:\Users\DELL\Desktop\password\lushi.py", line 718, in state_handler
+    success, loc, rect = self.check_in_screen(text)
+  File "C:\Users\DELL\Desktop\password\lushi.py", line 153, in check_in_screen
+    rect, screen = find_lushi_window(self.title)
+  File "C:\Users\DELL\Desktop\password\utils\util.py", line 114, in find_lushi_window
+    rect = win32gui.GetWindowPlacement(hwnd)[-1]
+pywintypes.error: (1400, 'GetWindowPlacement', '无效的窗口句柄。')
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\DELL\Desktop\password\lushi.py", line 432, in select_members
+    game = self.log_util.parse_game()
+  File "C:\Users\DELL\Desktop\password\utils\log_util.py", line 41, in parse_game
+    self.read_log()
+  File "C:\Users\DELL\Desktop\password\utils\log_util.py", line 32, in read_log
+    self.parser.read(f)
+  File "C:\Users\DELL\Desktop\password\python37\Lib\site-packages\hslog\parser.py", line 1102, in read
+    self.read_line(line)
+  File "C:\Users\DELL\Desktop\password\python37\Lib\site-packages\hslog\parser.py", line 1108, in read_line
+    raise RegexParsingError(line)
+hslog.exceptions.RegexParsingError: 
+
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\DELL\Desktop\password\lushi.py", line 329, in start_battle
+    game = self.log_util.parse_game()
+  File "C:\Users\DELL\Desktop\password\utils\log_util.py", line 41, in parse_game
+    self.read_log()
+  File "C:\Users\DELL\Desktop\password\utils\log_util.py", line 32, in read_log
+    self.parser.read(f)
+  File "C:\Users\DELL\Desktop\password\python37\Lib\site-packages\hslog\parser.py", line 1102, in read
+    self.read_line(line)
+  File "C:\Users\DELL\Desktop\password\python37\Lib\site-packages\hslog\parser.py", line 1108, in read_line
+    raise RegexParsingError(line)
+hslog.exceptions.RegexParsingError: 
+
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\DELL\Desktop\password\lushi.py", line 329, in start_battle
+    game = self.log_util.parse_game()
+  File "C:\Users\DELL\Desktop\password\utils\log_util.py", line 41, in parse_game
+    self.read_log()
+  File "C:\Users\DELL\Desktop\password\utils\log_util.py", line 32, in read_log
+    self.parser.read(f)
+  File "C:\Users\DELL\Desktop\password\python37\Lib\site-packages\hslog\parser.py", line 1102, in read
+    self.read_line(line)
+  File "C:\Users\DELL\Desktop\password\python37\Lib\site-packages\hslog\parser.py", line 1108, in read_line
+    raise RegexParsingError(line)
+hslog.exceptions.RegexParsingError: 
+
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\DELL\Desktop\password\lushi.py", line 329, in start_battle
+    game = self.log_util.parse_game()
+  File "C:\Users\DELL\Desktop\password\utils\log_util.py", line 41, in parse_game
+    self.read_log()
+  File "C:\Users\DELL\Desktop\password\utils\log_util.py", line 32, in read_log
+    self.parser.read(f)
+  File "C:\Users\DELL\Desktop\password\python37\Lib\site-packages\hslog\parser.py", line 1102, in read
+    self.read_line(line)
+  File "C:\Users\DELL\Desktop\password\python37\Lib\site-packages\hslog\parser.py", line 1108, in read_line
+    raise RegexParsingError(line)
+hslog.exceptions.RegexParsingError: 
+
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\DELL\Desktop\password\lushi.py", line 432, in select_members
+    game = self.log_util.parse_game()
+  File "C:\Users\DELL\Desktop\password\utils\log_util.py", line 41, in parse_game
+    self.read_log()
+  File "C:\Users\DELL\Desktop\password\utils\log_util.py", line 32, in read_log
+    self.parser.read(f)
+  File "C:\Users\DELL\Desktop\password\python37\Lib\site-packages\hslog\parser.py", line 1102, in read
+    self.read_line(line)
+  File "C:\Users\DELL\Desktop\password\python37\Lib\site-packages\hslog\parser.py", line 1108, in read_line
+    raise RegexParsingError(line)
+hslog.exceptions.RegexParsingError: 
+
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\DELL\Desktop\password\lushi.py", line 329, in start_battle
+    game = self.log_util.parse_game()
+  File "C:\Users\DELL\Desktop\password\utils\log_util.py", line 41, in parse_game
+    self.read_log()
+  File "C:\Users\DELL\Desktop\password\utils\log_util.py", line 32, in read_log
+    self.parser.read(f)
+  File "C:\Users\DELL\Desktop\password\python37\Lib\site-packages\hslog\parser.py", line 1102, in read
+    self.read_line(line)
+  File "C:\Users\DELL\Desktop\password\python37\Lib\site-packages\hslog\parser.py", line 1108, in read_line
+    raise RegexParsingError(line)
+hslog.exceptions.RegexParsingError: 
+
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\DELL\Desktop\password\lushi.py", line 432, in select_members
+    game = self.log_util.parse_game()
+  File "C:\Users\DELL\Desktop\password\utils\log_util.py", line 41, in parse_game
+    self.read_log()
+  File "C:\Users\DELL\Desktop\password\utils\log_util.py", line 32, in read_log
+    self.parser.read(f)
+  File "C:\Users\DELL\Desktop\password\python37\Lib\site-packages\hslog\parser.py", line 1102, in read
+    self.read_line(line)
+  File "C:\Users\DELL\Desktop\password\python37\Lib\site-packages\hslog\parser.py", line 1108, in read_line
+    raise RegexParsingError(line)
+hslog.exceptions.RegexParsingError: 
+
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "main_gui.py", line 675, in script_run
+    run_from_gui(self.config)
+  File "C:\Users\DELL\Desktop\password\lushi.py", line 1136, in run_from_gui
+    agent.run()
+  File "C:\Users\DELL\Desktop\password\lushi.py", line 1075, in run
+    self.run_pve()
+  File "C:\Users\DELL\Desktop\password\lushi.py", line 1121, in run_pve
+    success, tic, state, rect = self.state_handler(state, tic, state_text)
+  File "C:\Users\DELL\Desktop\password\lushi.py", line 953, in state_handler
+    self.select_members(self.lettuce_role_limit, battle_boss)
+  File "C:\Users\DELL\Desktop\password\lushi.py", line 437, in select_members
+    self.run_pve()
+  File "C:\Users\DELL\Desktop\password\lushi.py", line 1121, in run_pve
+    success, tic, state, rect = self.state_handler(state, tic, state_text)
+  File "C:\Users\DELL\Desktop\password\lushi.py", line 970, in state_handler
+    self.start_battle(rect, battle_boss)
+  File "C:\Users\DELL\Desktop\password\lushi.py", line 334, in start_battle
+    self.run_pve()
+  File "C:\Users\DELL\Desktop\password\lushi.py", line 1121, in run_pve
+    success, tic, state, rect = self.state_handler(state, tic, state_text)
+  File "C:\Users\DELL\Desktop\password\lushi.py", line 970, in state_handler
+    self.start_battle(rect, battle_boss)
+  File "C:\Users\DELL\Desktop\password\lushi.py", line 334, in start_battle
+    self.run_pve()
+  File "C:\Users\DELL\Desktop\password\lushi.py", line 1121, in run_pve
+    success, tic, state, rect = self.state_handler(state, tic, state_text)
+  File "C:\Users\DELL\Desktop\password\lushi.py", line 970, in state_handler
+    self.start_battle(rect, battle_boss)
+  File "C:\Users\DELL\Desktop\password\lushi.py", line 334, in start_battle
+    self.run_pve()
+  File "C:\Users\DELL\Desktop\password\lushi.py", line 1121, in run_pve
+    success, tic, state, rect = self.state_handler(state, tic, state_text)
+  File "C:\Users\DELL\Desktop\password\lushi.py", line 953, in state_handler
+    self.select_members(self.lettuce_role_limit, battle_boss)
+  File "C:\Users\DELL\Desktop\password\lushi.py", line 437, in select_members
+    self.run_pve()
+  File "C:\Users\DELL\Desktop\password\lushi.py", line 1121, in run_pve
+    success, tic, state, rect = self.state_handler(state, tic, state_text)
+  File "C:\Users\DELL\Desktop\password\lushi.py", line 970, in state_handler
+    self.start_battle(rect, battle_boss)
+  File "C:\Users\DELL\Desktop\password\lushi.py", line 334, in start_battle
+    self.run_pve()
+  File "C:\Users\DELL\Desktop\password\lushi.py", line 1121, in run_pve
+    success, tic, state, rect = self.state_handler(state, tic, state_text)
+  File "C:\Users\DELL\Desktop\password\lushi.py", line 953, in state_handler
+    self.select_members(self.lettuce_role_limit, battle_boss)
+  File "C:\Users\DELL\Desktop\password\lushi.py", line 437, in select_members
+    self.run_pve()
+  File "C:\Users\DELL\Desktop\password\lushi.py", line 1121, in run_pve
+    success, tic, state, rect = self.state_handler(state, tic, state_text)
+  File "C:\Users\DELL\Desktop\password\lushi.py", line 953, in state_handler
+    self.select_members(self.lettuce_role_limit, battle_boss)
+  File "C:\Users\DELL\Desktop\password\lushi.py", line 432, in select_members
+    game = self.log_util.parse_game()
+  File "C:\Users\DELL\Desktop\password\utils\log_util.py", line 41, in parse_game
+    self.read_log()
+  File "C:\Users\DELL\Desktop\password\utils\log_util.py", line 32, in read_log
+    self.parser.read(f)
+  File "C:\Users\DELL\Desktop\password\python37\Lib\site-packages\hslog\parser.py", line 1102, in read
+    self.read_line(line)
+  File "C:\Users\DELL\Desktop\password\python37\Lib\site-packages\hslog\parser.py", line 1137, in read_line
+    return callback(self._parsing_state, ts, msg)
+  File "C:\Users\DELL\Desktop\password\python37\Lib\site-packages\hslog\parser.py", line 736, in handle_options
+    self._check_for_options_hack(ps, ts)
+  File "C:\Users\DELL\Desktop\password\python37\Lib\site-packages\hslog\parser.py", line 733, in _check_for_options_hack
+    assert not isinstance(ps.current_block, packets.Block)
+AssertionError
+
